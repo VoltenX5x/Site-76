@@ -661,58 +661,32 @@ end)
 
 v:NewButton("Shy Guy", "Shy Guy SCP", function()
     local CFrameEnd = CFrame.new(686, -177, -525) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(686, -177, -525))
 end)
 
 v:NewButton("The Old Man", "The Old Man SCP", function()
-    local CFrameEnd = CFrame.new(921, -170, 175) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(921, -170, 175))
 end)
 
 v:NewButton("Plague Doctor", "Plague Doctor SCP", function()
-    local CFrameEnd = CFrame.new(483, -169, -265) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(483, -169, -265))
 end)
 
 v:NewButton("Burning Man", "Burning Man SCP", function()
-    local CFrameEnd = CFrame.new(408, -179, -467) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(408, -179, -467))
 end)
 
 v:NewButton("The Shadow Child", "The Shadow Child SCP", function()
-    local CFrameEnd = CFrame.new(238, -169, -134) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(238, -169, -134))
 end)
 
 v:NewButton("The Mask", "The Mask SCP", function()
-    local CFrameEnd = CFrame.new(753, -170, 7) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(753, -170, 7))
 end)
 
 v2:NewButton("Shy Guy, Breach", "Shy Guy SCP", function()
-    local CFrameEnd = CFrame.new(684, -177, -525) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+    local CFrameEnd = CFrame.new(921, -170, 160) -- Place your coords in here
+	tp(Vector3.new(921, -170, 160))
 	wait(1)
 	local args = {
 		[1] = workspace.ContainmentRegions:FindFirstChild("096"),
@@ -723,11 +697,7 @@ v2:NewButton("Shy Guy, Breach", "Shy Guy SCP", function()
 end)
 
 v2:NewButton("The Old Man, Breach", "The Old Man SCP", function()
-    local CFrameEnd = CFrame.new(921, -170, 160) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(921, -170, 160))
 	wait(1)
 	local args = {
 		[1] = workspace.ContainmentRegions:FindFirstChild("106"),
@@ -738,11 +708,7 @@ v2:NewButton("The Old Man, Breach", "The Old Man SCP", function()
 end)
 
 v2:NewButton("Plague Doctor, Breach", "Plague Doctor SCP", function()
-    local CFrameEnd = CFrame.new(484, -169, -266) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(484, -169, -266))
 	wait(1)
 	local args = {
 		[1] = workspace.ContainmentRegions:FindFirstChild("049").Door,
@@ -753,11 +719,7 @@ v2:NewButton("Plague Doctor, Breach", "Plague Doctor SCP", function()
 end)
 
 v2:NewButton("Burning Man, Breach", "Burning Man SCP", function()
-    local CFrameEnd = CFrame.new(414, -178, -476) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(414, -178, -476))
 	wait(1)
 	local args = {
 		[1] = workspace.ContainmentRegions:FindFirstChild("457").Door,
@@ -768,11 +730,7 @@ v2:NewButton("Burning Man, Breach", "Burning Man SCP", function()
 end)
 
 v2:NewButton("The Shadow Child, Breach", "The Shadow Child SCP", function()
-    local CFrameEnd = CFrame.new(232, -169, -138) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(232, -169, -138))
 	wait(1)
 	local args = {
 		[1] = workspace.ContainmentRegions:FindFirstChild("017C"),
