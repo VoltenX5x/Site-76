@@ -187,10 +187,17 @@ local Window = Library.CreateLib("[SCP] Site-76: Prison Anomalies", "Sentinel")
 local Tab = Window:NewTab("Config")
 local Config = Tab:NewSection("Config")
 local Misc = Tab:NewSection("Misc")
-local Time = Tab:NewSection("Time")
 
 Config:NewKeybind("KeybindButton", "KeybindButton", Enum.KeyCode.RightControl, function()
 	Library:ToggleUI()
+end)
+
+Config:NewSlider("Tween Speed","Tween Speed ", 350, 10,  function(val)
+	_speed = val
+end)
+
+Config:NewToggle("Kick on Mod Join", "Kick on Mod Join", function(state)
+	toggles.modDetector = state
 end)
 
 Misc:NewButton("Disable Jump Stamina", "Disable Jump Stamina drain", function()
@@ -220,11 +227,33 @@ Misc:NewButton("Destroy Teslas","Destroy Teslas Gates", function()
 	destroyteslagates()
 end)
 
-Misc:NewButton("Respawn","Respawn Basic", function()
+-- =============================================================--
+
+local Tab = Window:NewTab("Misc")
+local v = Tab:NewSection("Options")
+local Time = Tab:NewSection("Time")
+
+v:NewButton("Infinite Yield", "Infinite Yield", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+
+v:NewButton("Remote Spy", "Remote Spy", function()
+	loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
+end)
+
+v:NewButton("Remove NickName","Remove name",function()
+	game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChildOfClass("BillboardGui"):Destroy()
+end)
+
+v:NewButton("Respawn","Respawn Basic", function()
 	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
 end)
 
-Misc:NewToggle("Instant Respawn","Instant Respawn", function(s)
+v:NewToggle("Auto Remove Name","Auto Remove Nick", function(s)
+	toggles.rName = s
+end)
+
+v:NewToggle("Instant Respawn","Instant Respawn", function(s)
 	toggles.instantRespawn = s
 	if toggles.instantRespawn then
 		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
@@ -243,35 +272,6 @@ Time:NewButton("Prisoner", "Foundation Button", function()
 	local args = {[1] = "Prisoner",[2] = false}
 	game:GetService("ReplicatedStorage").Remotes.ChangeTeam:InvokeServer(unpack(args))
 	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
-end)
-
--- =============================================================--
-
-local Tab = Window:NewTab("Misc")
-local v = Tab:NewSection("Options")
-
-v:NewButton("Infinite Yield", "Infinite Yield", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-end)
-
-v:NewButton("Remote Spy", "Remote Spy", function()
-	loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
-end)
-
-v:NewButton("Remove NickName","Remove name",function()
-	game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChildOfClass("BillboardGui"):Destroy()
-end)
-
-v:NewToggle("Auto Remove Name","Auto Remove Nick", function(s)
-	toggles.rName = s
-end)
-
-v:NewSlider("Tween Speed","Tween Speed ", 1, 250, 300, 1, function(val)
-	_speed = val
-end)
-
-v:NewToggle("Kick on Mod Join", "Kick on Mod Join", function(state)
-	toggles.modDetector = state
 end)
 -- =============================================================--
 
@@ -436,11 +436,7 @@ tpl1:NewButton("Skeleton Key","Skeleton Key", function()
 end)
 
 tpl1:NewButton("C.I Shop", "C.I Shop", function()
-    local CFrameEnd = CFrame.new(687, 2, 465) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(687, 2, 465))
 end)
 
 tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Tetrahedron", "Pathogen"}, function(Selected)
@@ -458,15 +454,15 @@ tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Te
 end)
 
 tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Venda 3", "Venda 4", "Venda 5"}, function(Selected)
-	if Selected == "Venda 1" then
+	if Selected == "Venda 1, De Baixo do Telekill" then
 		tp(CFrame.new(316.202, -171.377, -366.875))
-	elseif Selected == "Venda 2" then
+	elseif Selected == "Venda 2, Big Elevator" then
 		tp(CFrame.new(602.501, -170.85, -33.839))
-	elseif Selected == "Venda 3" then
+	elseif Selected == "Venda 3, Storage" then
 		tp(CFrame.new(789.889, -0.058, 270.837))
-	elseif Selected == "Venda 4" then
+	elseif Selected == "Venda 4, " then
 		tp(CFrame.new(322, 19, 656))
-	elseif Selected == "Venda 5" then
+	elseif Selected == "Venda 5, Medical" then
 		tp(CFrame.new(786, 2, 269))
 	end
 end)
@@ -499,15 +495,23 @@ tp2:NewDropdown("Light Containment Zone","Light Containment Zone", {"SCP-914", "
 	end
 end)
  
-tp2:NewDropdown("Teleportes, Em Breve!","Teleportes", {"La em cima","Gate B","Bunker A","Bunker B"}, function(Selected)
-	if Selected == "la em cima" then
-		tp(CFrame.new(709, 19, 7))
+tp2:NewDropdown("Teleportes","Teleportes", {"La em cima","Gate B","Bunker A","Bunker B","Big Elevator","Personal Elevator","Medical","Clockwork Machine"}, function(Selected)
+	if Selected == "Topo" then
+		tp(CFrame.new(264, 209, 1465))
 	elseif Selected == "Gate B" then
 		tp(CFrame.new(318, 8, 186))
 	elseif Selected == "Bunker A" then
-		tp(CFrame.new(780, 21, -177))
+		tp(CFrame.new(448, 19, 298))
 	elseif Selected == "Bunker B" then
-		tp(CFrame.new(780, 21, -177))
+		tp(CFrame.new(339, 19, 582))
+	elseif Selected == "Big Elevator" then
+		tp(CFrame.new(592, 19, -72)) 
+	elseif Selected == "Personal Elevator" then
+		tp(CFrame.new(387, 19, 33)) 
+	elseif Selected == "Medical" then
+		tp(CFrame.new(780, 19, 284)) 
+	elseif Selected == "Clockwork Machine" then
+		tp(CFrame.new(699, 19, 8)) 
 	end
 end)
 
@@ -536,11 +540,7 @@ v3:NewButton("Omega Warhead Ativar", "Omega Warhead Activation", function()
 		Icon = "rbxassetid://57254792"; -- the image if u want. 
 		Duration = 2; -- how long the notification should in secounds
 	})
-    local CFrameEnd = CFrame.new(564, -175, 31) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(Vector3.new(564, -175, 31))
 	wait(1)
 	game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(workspace.Arm)
 end)
