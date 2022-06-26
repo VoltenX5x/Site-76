@@ -457,7 +457,7 @@ tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Te
 	end
 end)
 
-tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Venda 3", "Venda 4", "Venda 5"}, function(Selected)
+tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Venda 3", "Venda 4"}, function(Selected)
 	if Selected == "Venda 1" then
 		tp(CFrame.new(316.202, -171.377, -366.875))
 	elseif Selected == "Venda 2" then
@@ -466,8 +466,6 @@ tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Vend
 		tp(CFrame.new(789.889, -0.058, 270.837))
 	elseif Selected == "Venda 4" then
 		tp(CFrame.new(322, 19, 656))
-	elseif Selected == "Venda 5" then
-		tp(CFrame.new(786, 2, 269))
 	end
 end)
 
