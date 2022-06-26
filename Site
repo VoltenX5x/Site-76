@@ -1,0 +1,505 @@
+--===============================================--
+-- By VoltenX
+-- // Services
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RS = game:GetService("ReplicatedStorage")
+
+--===============================================--
+
+-- // Vars
+
+local player = Players.LocalPlayer
+local character = player.Character
+local hpart = character.HumanoidRootPart
+
+--===============================================--
+
+local OldNameCall
+    OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if not checkcaller() and self.name == "FallDamage" and method == "FireServer" then
+        return nil
+    end
+    return OldNameCall(self, ...)
+end))
+
+-- =============================================================--
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("VoltenX", "Sentinel")
+-- =============================================================--
+
+local Tab = Window:NewTab("Config")
+local Config = Tab:NewSection("Config")
+local Time = Tab:NewSection("Time")
+local Misc = Tab:NewSection("Misc")
+
+Config:NewKeybind("KeybindButton", "KeybindButton", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+end)
+
+Config:NewButton("Infinite Yield", "Infinite Yield", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+
+Config:NewButton("Remote Spy", "Remote Spy", function()
+	loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
+end)
+
+Time:NewButton("Foundation", "Foundation Button", function()
+	local args = {[1] = "Foundation",[2] = true}
+	game:GetService("ReplicatedStorage").Remotes.ChangeTeam:InvokeServer(unpack(args))
+	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
+end)
+
+Time:NewButton("Prisoner", "Foundation Button", function()
+	local args = {[1] = "Prisoner",[2] = false}
+	game:GetService("ReplicatedStorage").Remotes.ChangeTeam:InvokeServer(unpack(args))
+	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
+end)
+
+Misc:NewButton("Disable Jump Stamina", "Disable Jump Stamina drain", function()
+	local OldNameCall
+    OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if not checkcaller() and self.name == "_" and method == "Fire" and args[1] == "SubtractStamina" then
+        return nil
+    end
+    return OldNameCall(self, ...)
+end))
+end)
+
+Misc:NewButton("Destroy Tesla Gate", "Tesla Gate", function()
+	local function destroyteslagates()
+		for i,v in pairs(Workspace:GetChildren()) do
+			if v.Name == "TeslaGate" then
+				v:Destroy()
+			end
+		end
+	end
+end)
+
+Misc:NewButton("Remove Textures", "Remove Texture", function()
+	local ws = game:GetService("Workspace")
+
+	for i,v in pairs(ws:GetDescendants()) do
+	   if v:IsA("Texture") then
+		   v:Destroy()
+	   end
+	end
+end)
+
+-- =============================================================--
+
+local Tab = Window:NewTab("Teleporte")
+local tp1 = Tab:NewSection("Misc")
+local tp = Tab:NewSection("Teleportes")
+local tp2 = Tab:NewSection("Light") 
+
+
+tp1:NewButton("Escape Chaos Insurgency", "Escape Button", function()
+	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+
+	tween = tweenService:Create((hpart), tweenInfo, {CFrame = CFrame.new(344, 8, 161)})
+	tween:Play()
+	wait(3)
+	RS.Remotes.Interact:FireServer(Workspace.Elevators.GateAToSurface1.Call)
+	wait(5)
+
+	tween2 = tweenService:Create((hpart), tweenInfo, {CFrame = CFrame.new(344, 8, 143)})
+	tween2:Play()
+	wait(3)
+
+	RS.Remotes.Interact:FireServer(Workspace.Elevators.GateAToSurface1.UseElevator)
+	wait(5)
+
+	tween3 = tweenService:Create((hpart), tweenInfo, {CFrame = CFrame.new(208, 209, 1464)})
+	tween3:Play()
+	wait(2)
+
+	tween4 = tweenService:Create((hpart), tweenInfo, {CFrame = CFrame.new(490.485901, 209.402817, 1418.58826)})
+	tween4:Play()
+	wait(2)
+
+	for i = 1, 8 do
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		wait(1)
+	end
+end)
+
+tp1:NewButton("Omega Warhead Activation", "Omega Warhead Activation", function()
+	local CFrameEnd = CFrame.new(564, -175, 13) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp:NewButton("Desert Tetrahedron", "Desert Tetrahedron", function()
+	local CFrameEnd = CFrame.new(295, 19, 350) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp:NewButton("Red Lake", "Red Lake", function()
+    local CFrameEnd = CFrame.new(405, -170, 120) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp:NewButton("Living Room", "Living Room", function()
+    local CFrameEnd = CFrame.new(936, -170, -333) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp:NewButton("Tele Kill Alloy", "Telle Kill Alloy", function()
+    local CFrameEnd = CFrame.new(382, 19, -411) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp:NewButton("Zombie Pathogen", "Zombie Pathogen", function()
+    local CFrameEnd = CFrame.new(812, 19, -178) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+ 
+tp2:NewButton("Light 1", "Light 1", function()
+    local CFrameEnd = CFrame.new(502, 19, 635) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp2:NewButton("Light 2", "Light 2", function()
+    local CFrameEnd = CFrame.new(812, 19, -178) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+tp2:NewButton("Light 3", "Light 3", function()
+    local CFrameEnd = CFrame.new(433, -12, 267) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+-- =============================================================
+
+local Tab = Window:NewTab("Vendas")
+local v = Tab:NewSection("Local de Vendas")
+
+
+v:NewButton("Venda NPC 1", "Venda 1", function()
+    local CFrameEnd = CFrame.new(316.202, -171.377, -366.875) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("Venda NPC 2", "Venda 2", function()
+    local CFrameEnd = CFrame.new(602.501, -170.85, -33.839) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("Venda NPC 3", "Venda 3", function()
+    local CFrameEnd = CFrame.new(789.889, -0.058, 270.837) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("Venda NPC 4", "Venda 4", function()
+    local CFrameEnd = CFrame.new(322, 19, 656) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+ 
+v:NewButton("Venda NPC 5", "Venda 5", function()
+    local CFrameEnd = CFrame.new(786, 2, 269) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+-- =============================================================--
+
+local Tab = Window:NewTab("SCPS")
+local v = Tab:NewSection("Local das Anomalias")
+
+v:NewButton("Shy Guy", "Shy Guy SCP", function()
+    local CFrameEnd = CFrame.new(686, -177, -525) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("The Old Man", "The Old Man SCP", function()
+    local CFrameEnd = CFrame.new(921, -170, 175) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("Plague Doctor", "Plague Doctor SCP", function()
+    local CFrameEnd = CFrame.new(483, -169, -265) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("Burning Man", "Burning Man SCP", function()
+    local CFrameEnd = CFrame.new(408, -179, -467) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("The Shadow Child", "The Shadow Child SCP", function()
+    local CFrameEnd = CFrame.new(238, -169, -134) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+v:NewButton("The Mask", "The Mask SCP", function()
+    local CFrameEnd = CFrame.new(753, -170, 7) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+end)
+
+-- =============================================================--
+
+
+local Tab = Window:NewTab("SCPS Breach")
+local v2 = Tab:NewSection("Omega AutoActive")
+local v = Tab:NewSection("Anomalias Automatic Breach")
+
+
+v2:NewButton("Omega Warhead Activation", "Omega Warhead Activation", function()
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Misc"; -- the title (ofc)
+		Text = "Omega WarHead Activation Automatic"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+    local CFrameEnd = CFrame.new(564, -175, 31) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(workspace.Arm)
+end)
+
+
+v:NewButton("Shy Guy, Breach", "Shy Guy SCP", function()
+    local CFrameEnd = CFrame.new(684, -177, -525) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("096"),
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
+
+v:NewButton("The Old Man, Breach", "The Old Man SCP", function()
+    local CFrameEnd = CFrame.new(921, -170, 160) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("106"),
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
+
+v:NewButton("Plague Doctor, Breach", "Plague Doctor SCP", function()
+    local CFrameEnd = CFrame.new(484, -169, -266) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("049").Door,
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
+
+v:NewButton("Burning Man, Breach", "Burning Man SCP", function()
+    local CFrameEnd = CFrame.new(414, -178, -476) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("457").Door,
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
+
+v:NewButton("The Shadow Child, Breach", "The Shadow Child SCP", function()
+    local CFrameEnd = CFrame.new(232, -169, -138) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("017C"),
+		[2] = "Release"
+	}
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
+
+v:NewButton("AutoBreach all Anomalies", "Breach All Anomalies", function()
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "SCPS"; -- the title (ofc)
+		Text = "Shy Guy"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+	local CFrameEnd = CFrame.new(684, -177, -525) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("096"),
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+	
+	wait(1)
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "SCPS"; -- the title (ofc)
+		Text = "The Old Man"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+	local CFrameEnd = CFrame.new(921, -170, 160) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("106"),
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+
+	wait(1)
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "SCPS"; -- the title (ofc)
+		Text = "Plague Doctor"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+	local CFrameEnd = CFrame.new(484, -169, -266) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("049").Door,
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+
+	wait(1)
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "SCPS"; -- the title (ofc)
+		Text = "Shadow Child"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+	local CFrameEnd = CFrame.new(414, -178, -476) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("457").Door,
+		[2] = "Release"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+
+	wait(1)
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "SCPS"; -- the title (ofc)
+		Text = "Shadow Child"; -- what the text says (ofc)
+		Icon = "rbxassetid://57254792"; -- the image if u want. 
+		Duration = 2; -- how long the notification should in secounds
+	})
+	local CFrameEnd = CFrame.new(232, -169, -138) -- Place your coords in here
+	local Time = 3.5 -- Time in seconds
+	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
+	tween:Play()
+	tween.Completed:Wait()
+	wait(1)
+	local args = {
+		[1] = workspace.ContainmentRegions:FindFirstChild("017C"),
+		[2] = "Release"
+	}
+	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
+end)
