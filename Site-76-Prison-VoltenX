@@ -500,8 +500,8 @@ tp2:NewDropdown("Light Containment Zone","Light Containment Zone", {"SCP-914", "
 end)
  
 tp2:NewDropdown("Teleportes","Teleportes", {"La em cima","Gate B","Bunker A","Bunker B","Big Elevator","Personal Elevator","Medical","Clockwork Machine"}, function(Selected)
-	if Selected == "Topo" then
-		tp(CFrame.new(264, 209, 1465))
+	if Selected == "Gate Topo" then
+		tp(CFrame.new(290, 209, 1463))
 	elseif Selected == "Gate B" then
 		tp(CFrame.new(318, 8, 186))
 	elseif Selected == "Bunker A" then
