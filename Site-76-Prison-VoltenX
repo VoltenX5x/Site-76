@@ -782,9 +782,7 @@ end)
 
 -- =============================================================--
 
-    --//Event Connections
-    game:GetService("Workspace"):FindFirstChild("Laser"):Destroy()
-    
+    --//Event Connections 
     game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
         game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
             if toggles.instantRespawn then
@@ -804,4 +802,3 @@ end)
             end
         end
     end)
-end
