@@ -28,7 +28,7 @@ end))
 
 -- =============================================================--
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("VoltenX", "Sentinel")
+local Window = Library.CreateLib("[SCP] Site-76: Prison Anomalies", "Sentinel")
 -- =============================================================--
 
 local Tab = Window:NewTab("Config")
