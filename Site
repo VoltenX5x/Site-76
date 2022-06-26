@@ -291,7 +291,7 @@ Farm:NewToggle("Escape AutoFarm", "Escape AutoFarm", function(s)
 	end)
 end)
 
-Farm:NewButton("Toggle Mask AutoFarm", "Escape Button", function()
+Farm:NewToggle("Toggle Mask AutoFarm", "Escape Button", function(s)
 	toggles.mask = s
 end)
 
@@ -325,7 +325,7 @@ Farm:NewToggle("Infinite Money/EXP", "Infinite Money and EXP", function(s)
 	end
 end)
 
-Farm:NewButton("Join Smallest Server", function()
+Farm:NewButton("Join Smallest Server","Join Small Server", function()
 	getgenv().AutoTeleport = true
 	getgenv().DontTeleportTheSameNumber = true --If you set this true it won't teleport to the server if it has the same number of players as your current server
 
