@@ -439,6 +439,10 @@ tpl1:NewButton("C.I Shop", "C.I Shop", function()
 	tp(Vector3.new(687, 2, 465))
 end)
 
+tpl1:NewButton("Chaos Insurgency Shop", "C.I Shop", function()
+	tp(Vector3.new(14, 102, 1149))
+end)
+
 tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Tetrahedron", "Pathogen"}, function(Selected)
 	if Selected == "Living Room" then
 		tp(CFrame.new(936, -170, -333))
@@ -454,15 +458,15 @@ tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Te
 end)
 
 tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Venda 3", "Venda 4", "Venda 5"}, function(Selected)
-	if Selected == "Venda 1, De Baixo do Telekill" then
+	if Selected == "Venda 1" then
 		tp(CFrame.new(316.202, -171.377, -366.875))
-	elseif Selected == "Venda 2, Big Elevator" then
+	elseif Selected == "Venda 2" then
 		tp(CFrame.new(602.501, -170.85, -33.839))
-	elseif Selected == "Venda 3, Storage" then
+	elseif Selected == "Venda 3" then
 		tp(CFrame.new(789.889, -0.058, 270.837))
-	elseif Selected == "Venda 4, " then
+	elseif Selected == "Venda 4" then
 		tp(CFrame.new(322, 19, 656))
-	elseif Selected == "Venda 5, Medical" then
+	elseif Selected == "Venda 5" then
 		tp(CFrame.new(786, 2, 269))
 	end
 end)
