@@ -41,7 +41,7 @@ local hpart = character.HumanoidRootPart
     local toggles = {
         modDetector = false,
         instantRespawn = false,
-        rName = true,
+        rName = false,
         farmEscape = false
     }
     local noClip = nil
@@ -227,6 +227,34 @@ Misc:NewButton("Destroy Teslas","Destroy Teslas Gates", function()
 	destroyteslagates()
 end)
 
+Misc:NewButton("Simple Remove Lag","Simple Remove Lag", function()
+	local plrs = workspace:GetChildren() 
+
+	for i = 1, #plrs do 
+		if plrs[i].className == "Part" then
+			if plrs[i].Anchored == true then
+				plrs[i]:BreakJoints()
+			end
+		elseif plrs[i].className == "Model" then
+			local plrs2 = plrs[i]:GetChildren()
+			for i = 1, #plrs2 do
+				if plrs2[i].className == "Part" then
+					if plrs2[i].Anchored == true then
+						plrs2[i]:BreakJoints()
+					end
+				end
+			end
+		end
+	end
+end)
+
+Misc:NewButton("Simple Remove Lag V2","Simple Remove Lag", function()
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.ClassName == "Part" or v.ClassName == "WedgePart" then
+			v.Material = "SmoothPlastic"
+		end
+	end
+end)
 -- =============================================================--
 
 local Tab = Window:NewTab("Misc")
@@ -739,7 +767,14 @@ v2:NewButton("The Shadow Child, Breach", "The Shadow Child SCP", function()
 	game:GetService("ReplicatedStorage").Remotes.ReleaseSCP:FireServer(unpack(args))
 end)
 
-
+v2:NewButton("The Mask, Breach", "The Mask SCP", function()
+	if game:GetService("Workspace").ContainmentRegions["035C"]["035"].Interact.Transparency == 0 then
+		tp(701, -169, 22)
+		wait(1)
+		local args = {[1] = workspace.ContainmentRegions:FindFirstChild("035C"):FindFirstChild("035")}
+		game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(unpack(args))
+	end
+end)
 -- =============================================================--
 
     --//Event Connections 
