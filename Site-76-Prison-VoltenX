@@ -212,6 +212,8 @@ ESP.Tracers = false
 ESP.Boxes = false
 ESP.SCPs = true
 
+
+
 -- =============================================================--
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("[SCP] Site-76: Prison Anomalies","Sentinel")
@@ -231,6 +233,16 @@ end)
 
 Config:NewToggle("Kick on Mod Join", "Kick on Mod Join", function(state)
 	toggles.modDetector = state
+end)
+
+Config:NewButton("Rejoin Button", "Rejoin", function()
+	if #Players:GetPlayers() <= 1 then
+		Players.LocalPlayer:Kick("\nRejoining...")
+		wait()
+		game:GetService('TeleportService'):Teleport(game.PlaceId, Players.LocalPlayer)
+	else
+		game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
+	end
 end)
 
 Misc:NewButton("Disable Jump Stamina", "Disable Jump Stamina drain", function()
@@ -292,7 +304,6 @@ end)
 
 local Tab = Window:NewTab("Misc")
 local v = Tab:NewSection("Options")
-local Time = Tab:NewSection("Time")
 
 v:NewButton("Infinite Yield", "Infinite Yield", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
@@ -321,18 +332,6 @@ v:NewToggle("Instant Respawn","Instant Respawn", function(s)
 			game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
 		end)
 	end
-end)
-
-Time:NewButton("Foundation", "Foundation Button", function()
-	local args = {[1] = "Foundation",[2] = true}
-	game:GetService("ReplicatedStorage").Remotes.ChangeTeam:InvokeServer(unpack(args))
-	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
-end)
-
-Time:NewButton("Prisoner", "Foundation Button", function()
-	local args = {[1] = "Prisoner",[2] = false}
-	game:GetService("ReplicatedStorage").Remotes.ChangeTeam:InvokeServer(unpack(args))
-	game:GetService("ReplicatedStorage").Remotes.RespawnPlayer:FireServer()
 end)
 -- =============================================================--
 
@@ -479,41 +478,12 @@ tpl1:NewButton("SCP-008 Self-Infect","SCP-008 Self-Infect",function()
 	tp(plrprevpos)
 end)
 
-tpl1:NewButton("Skeleton Key","Skeleton Key", function()
-	if game:GetService("Workspace").SCPs["005"].Mesh.Transparency == 0 then
-		local posPrev = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-		local CFrameEnd = CFrame.new(361, 23, 325) -- Place your coords in here
-		local Time = 3 -- Time in seconds
-		local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-		tween:Play()
-		tween.Completed:Wait()
-		local args = {
-			[1] = workspace.SCPs:FindFirstChild("005")
-		}
-		game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(unpack(args))
-		wait(.5)
-		tp(posPrev)
-	end
-end)
-
 tpl1:NewButton("C.I Shop", "C.I Shop", function()
 	tp(Vector3.new(687, 2, 465))
 end)
 
 tpl1:NewButton("Chaos Insurgency Shop", "C.I Shop", function()
 	tp(Vector3.new(14, 102, 1149))
-end)
-
-tpl1:NewButton("LoveCraftiano", "LoveCraftiano", function()
-	tp(Vector3.new(857, 19, 234))
-	wait(1)
-	local args = {[1] = workspace.SCPs:FindFirstChild("500")}
-	game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(unpack(args))
-	wait(1)
-	tp(Vector3.new(718, 19, -13))
-	wait(1)
-	local args = {[1] = "Very Fine",[2] = "Panacea"}
-	game:GetService("ReplicatedStorage").Remotes:FindFirstChild("914Lever"):FireServer(unpack(args))
 end)
 
 tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Tetrahedron", "Pathogen"}, function(Selected)
@@ -530,8 +500,10 @@ tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Te
 	end
 end)
 
-tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Venda 3", "Venda 4"}, function(Selected)
-	if Selected == "Venda 1" then
+tp1:NewDropdown("Local de Venda", "Local de venda", {"Agent TP","Venda 1", "Venda 2", "Venda 3", "Venda 4"}, function(Selected)
+	if Selected == "Agent TP" then
+		nextAgent()
+	elseif Selected == "Venda 1" then
 		tp(CFrame.new(316.202, -171.377, -366.875))
 	elseif Selected == "Venda 2" then
 		tp(CFrame.new(602.501, -170.85, -33.839))
@@ -542,15 +514,24 @@ tp1:NewDropdown("Local de Venda", "Local de venda", {"Venda 1", "Venda 2", "Vend
 	end
 end)
 
+tp1:NewButton("Agent TP", "Agent Teleport", function()
+	local dist = math.huge
+	local target
+	for _,v in pairs(game:GetService("Workspace").Contracts:GetChildren()) do
+		if v.Name == "Agent" then
+			local check = (v:FindFirstChild("Head").Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+			if check < dist then
+				target = v.Head.Position
+				dist = check
+			end
+		end
+	end
+end)
 tpl1:NewButton("Omega Warhead Activation", "Omega Warhead Activation", function()
-	local CFrameEnd = CFrame.new(564, -175, 13) -- Place your coords in here
-	local Time = 4 -- Time in seconds
-	local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd})
-	tween:Play()
-	tween.Completed:Wait()
+	tp(CFrame(564, -175, 13))
 end)
 
-tp2:NewDropdown("Light Containment Zone","Light Containment Zone", {"SCP-914", "Skeleton Key", "Bell", "SCP-008", "Doorman", "SCP-173", "Wendigo", "Fish Man", "Explosive Bat"}, function(Selected)
+tp2:NewDropdown("Light Containment Zone","Light Containment Zone", {"SCP-914", "SCP-008", "SCP-173", "Doorman", "Wendigo", "Fish Man", "Skeleton Key", "Bell", "Explosive Bat"}, function(Selected)
 	if Selected == "SCP-914" then
 		tp(CFrame.new(709, 19, 7))
 	elseif Selected == "SCP-008" then
@@ -599,7 +580,6 @@ tp2:NewDropdown("Sala das Luzes","Sala das Luzes", {"Light 1","Light 2","Light 3
 		tp(CFrame.new(433, -12, 267))
 	end
 end)
-
 
 -- =============================================================--
 
@@ -873,4 +853,19 @@ end)
 
 v3:NewToggle("Boxes","Boxes", function(S)
 	ESP.Boxes = S
+end)
+
+local Tab = Window:NewTab("Em Breve")
+local v = Tab:NewSection("Em Breve")
+
+v:NewButton("LoveCraftiano", "LoveCraftiano", function()
+	tp(Vector3.new(857, 19, 234))
+	wait(1)
+	local args = {[1] = workspace.SCPs:FindFirstChild("500")}
+	game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(unpack(args))
+	wait(1)
+	tp(Vector3.new(718, 19, -13))
+	wait(1)
+	local args = {[1] = "Very Fine",[2] = "Panacea"}
+	game:GetService("ReplicatedStorage").Remotes:FindFirstChild("914Lever"):FireServer(unpack(args))
 end)
