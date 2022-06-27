@@ -1,5 +1,11 @@
 --===============================================--
--- By VoltenX
+--												 --
+--												 --
+--                 By VoltenX                    --
+--												 --
+--												 --
+--===============================================--
+
 -- // Services
 
 local Players = game:GetService("Players")
@@ -179,9 +185,36 @@ local OldNameCall
     return OldNameCall(self, ...)
 end))
 
+
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Anomaly-hub/Anomalies-Scripts/main/kiriots%20esp", true))()
+local function refreshSCPs()
+	for _,v in pairs(game:GetService("Workspace").SCPs:GetDescendants()) do   
+		if v.Name == "AnomName" and v.ClassName == "StringValue" then
+			ESP:Add(v.Parent, {Name = tostring(v.Value), IsEnabled = "SCPs"})
+		end
+	end
+	if game:GetService("Workspace").SCPs["303"] then
+		ESP:Add(game:GetService("Workspace").SCPs["303"], {Name = "The Door Man", IsEnabled = "SCPs"})
+	end
+	if game:GetService("Workspace").SCPs:FindFirstChild("096") then
+		ESP:Add(game:GetService("Workspace").SCPs["096"], {Name = "The Shy Guy", IsEnabled = "SCPs"})
+	end
+	if game:GetService("Workspace").SCPs["131"]["131-A"] then
+		ESP:Add(game:GetService("Workspace").SCPs["131"]["131-A"], {Name = "Eye Pod - A", IsEnabled = "SCPs"})
+	end
+	if game:GetService("Workspace").SCPs["131"]["131-B"] then
+		ESP:Add(game:GetService("Workspace").SCPs["131"]["131-B"], {Name = "Eye Pod - B", IsEnabled = "SCPs"})
+	end
+end
+local OpenedSCPs = false
+ESP.Players = false
+ESP.Tracers = false
+ESP.Boxes = false
+ESP.SCPs = true
+
 -- =============================================================--
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("[SCP] Site-76: Prison Anomalies", "Sentinel")
+local Window = Library.CreateLib("[SCP] Site-76: Prison Anomalies","Sentinel")
 -- =============================================================--
 -- // UI
 local Tab = Window:NewTab("Config")
@@ -471,11 +504,23 @@ tpl1:NewButton("Chaos Insurgency Shop", "C.I Shop", function()
 	tp(Vector3.new(14, 102, 1149))
 end)
 
+tpl1:NewButton("LoveCraftiano", "LoveCraftiano", function()
+	tp(Vector3.new(857, 19, 234))
+	wait(1)
+	local args = {[1] = workspace.SCPs:FindFirstChild("500")}
+	game:GetService("ReplicatedStorage").Remotes.Interact:FireServer(unpack(args))
+	wait(1)
+	tp(Vector3.new(718, 19, -13))
+	wait(1)
+	local args = {[1] = "Very Fine",[2] = "Panacea"}
+	game:GetService("ReplicatedStorage").Remotes:FindFirstChild("914Lever"):FireServer(unpack(args))
+end)
+
 tp1:NewDropdown("Roubo", "Rob Farm", {"Living Room", "Red lake", "Telekill", "Tetrahedron", "Pathogen"}, function(Selected)
 	if Selected == "Living Room" then
 		tp(CFrame.new(936, -170, -333))
 	elseif Selected == "Red Lake" then
-		tp(CFrame.new(406.138, -170.914, 164.562))
+		tp(CFrame.new(406, -170, 155))
 	elseif Selected == "Tetrahedron" then
 		tp(CFrame.new(291.09, 17.203, 329.67))
 	elseif Selected == "Telekill" then
@@ -797,3 +842,35 @@ end)
             end
         end
     end)
+
+local Tab = Window:NewTab("ESP")
+local v3 = Tab:NewSection("Esp")
+
+v3:NewToggle("Enabled","Enabled", function(S)
+	ESP:Toggle(S)
+end)
+
+v3:NewToggle("SCPs","Scps", function(S)
+	ESP.SCPs = S
+	if OpenedSCPs == false then
+		refreshSCPs()
+		spawn(function()
+			while true and wait(60) do
+				refreshSCPs()
+			end
+		end)
+		OpenedSCPs = true
+	end
+end)
+
+v3:NewToggle("Players","Players Esp", function(S)
+	ESP.Players = S
+end)
+
+v3:NewToggle("Tracers","Tracers", function(S)
+	ESP.Tracers = S
+end)
+
+v3:NewToggle("Boxes","Boxes", function(S)
+	ESP.Boxes = S
+end)
